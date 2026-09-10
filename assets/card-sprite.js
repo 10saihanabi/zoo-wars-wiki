@@ -1,0 +1,1 @@
+window.CARD_SPRITE={"nezumi":[0,0],"koumori":[1,0],"usagi":[2,0],"mogura":[3,0],"saru":[4,0],"shirokuma":[5,0],"taka":[6,0],"koala":[7,0],"niwatori":[0,1],"inoshishi":[1,1],"panda":[2,1],"tora":[3,1],"lion":[4,1],"kirin":[5,1],"zou":[6,1],"ringo":[7,1],"lemon":[0,2],"melon":[1,2],"pine":[2,2],"budou":[3,2],"suika":[4,2]};
