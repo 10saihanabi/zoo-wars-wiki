@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="動物園ウォーズ攻略Wiki（非公式）" />
+  <title>動物園ウォーズ攻略Wiki</title>
+  <style>
+:root {
+  --border: #c8c8c8;
+  --soft: #f4f4f4;
+  --soft2: #fafafa;
+  --text: #222;
+  --muted: #666;
+  --link: #1756a9;
+  --accent: #444;
+  --warn: #fff7d6;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--text);
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic", Meiryo, sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.site-header { border-bottom: 1px solid var(--border); background: #f7f7f7; }
+.header-inner, .version-inner, .layout, .footer { max-width: 1180px; margin: 0 auto; }
+.header-inner { display:flex; align-items:center; justify-content:space-between; padding: 12px 18px; gap: 20px; }
+.site-title { font-weight: 700; font-size: 20px; color:#222; }
+.utility-nav { display:flex; gap:14px; font-size:12px; flex-wrap:wrap; }
+.version-bar { border-bottom:1px solid var(--border); background:#fff; }
+.version-inner { padding:8px 18px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.version-inner label { font-weight:700; }
+.version-inner select { min-width:170px; padding:5px 8px; border:1px solid #aaa; background:#fff; }
+.version-summary { color:var(--muted); font-size:12px; }
+.layout { display:grid; grid-template-columns: 255px minmax(0,1fr); gap:24px; padding:20px 18px 42px; }
+.sidebar { min-width:0; }
+.side-box { border:1px solid var(--border); margin-bottom:14px; background:#fff; }
+.side-box > h2 { margin:0; padding:7px 9px; font-size:14px; background:var(--soft); border-bottom:1px solid var(--border); }
+.side-box section, .side-box > p, .search-box > input, .search-results { margin-left:10px; margin-right:10px; }
+.side-box h3 { font-size:13px; margin:10px 0 4px; }
+.side-box ul { margin:5px 0 10px 1.3em; padding:0; }
+.side-box hr { border:0; border-top:1px solid #ddd; }
+.search-box input { width:calc(100% - 20px); margin-top:10px; margin-bottom:10px; padding:6px 8px; border:1px solid #aaa; }
+.search-results { border-top:1px solid #ddd; padding:8px 0; font-size:12px; }
+.search-results a { display:block; padding:3px 0; }
+.content { min-width:0; }
+.content h1 { font-size:26px; margin:0 0 18px; border-bottom:3px double #777; padding-bottom:8px; }
+.content h2 { font-size:20px; margin:28px 0 12px; border-bottom:1px solid #999; padding-bottom:5px; }
+.content h3 { font-size:16px; margin:20px 0 8px; border-left:4px solid #777; padding-left:8px; }
+.content p { margin:8px 0 12px; }
+.content ul, .content ol { padding-left:1.7em; }
+.notice { border:1px solid #e3cf7a; background:var(--warn); padding:10px 12px; margin:12px 0 18px; }
+.badge { display:inline-block; font-size:11px; border:1px solid #999; background:#f3f3f3; padding:1px 5px; border-radius:3px; vertical-align:middle; }
+.badge.dummy { border-color:#b47b00; background:#fff3c7; }
+.meta { color:var(--muted); font-size:12px; }
+.menu-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 28px; }
+.menu-block { border-bottom:1px dotted #bbb; padding-bottom:8px; }
+.menu-block h3 { border-left:0; padding-left:0; margin-top:8px; }
+.table-wrap { overflow-x:auto; }
+table { border-collapse:collapse; width:100%; margin:10px 0 18px; font-size:13px; }
+th, td { border:1px solid #aaa; padding:6px 8px; vertical-align:top; }
+th { background:#eee; text-align:left; }
+tr:nth-child(even) td { background:#fcfcfc; }
+.card-name { font-weight:700; }
+.version-chip { white-space:nowrap; }
+.kpi-row { display:flex; gap:10px; flex-wrap:wrap; margin:12px 0; }
+.kpi { border:1px solid #bbb; background:var(--soft2); min-width:125px; padding:8px 10px; }
+.kpi strong { display:block; font-size:19px; }
+.page-list { columns:2; column-gap:38px; }
+.page-list li { break-inside:avoid; }
+.codeish { font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#f5f5f5; border:1px solid #ddd; padding:1px 4px; }
+.footer { border-top:1px solid var(--border); padding:18px; color:var(--muted); font-size:12px; }
+@media (max-width: 760px) {
+  .header-inner { align-items:flex-start; flex-direction:column; gap:6px; }
+  .layout { grid-template-columns:1fr; padding-top:12px; }
+  .sidebar { order:2; }
+  .content { order:1; }
+  .menu-grid { grid-template-columns:1fr; }
+  .page-list { columns:1; }
+}
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-title" href="#top">動物園ウォーズ攻略Wiki</a>
+      <nav class="utility-nav" aria-label="ユーティリティ">
+        <a href="#guide">操作ガイド</a>
+        <a href="#pages">全ページ一覧</a>
+        <a href="#about">このWikiについて</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="version-bar">
+    <div class="version-inner">
+      <label for="versionSelect">環境バージョン</label>
+      <select id="versionSelect" aria-label="環境バージョンを選択"></select>
+      <span id="versionSummary" class="version-summary"></span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="side-box search-box">
+        <h2>Wiki内検索</h2>
+        <input id="searchInput" type="search" placeholder="ページ・動物名を検索" />
+        <div id="searchResults" class="search-results" hidden></div>
+      </div>
+
+      <nav class="side-box" aria-label="メインメニュー">
+        <h2>メインメニュー</h2>
+        <section>
+          <h3>★動物リスト</h3>
+          <ul>
+            <li><a href="#animals">全動物リスト</a></li>
+            <li><a href="#beginner-animals">初心者向け動物</a></li>
+            <li><a href="#role-list">役割別リスト</a></li>
+          </ul>
+        </section>
+        <hr />
+        <section>
+          <h3>★対人戦攻略</h3>
+          <ul>
+            <li><a href="#deck">デッキ構築</a></li>
+            <li><a href="#combos">パーツ・コンボリスト</a></li>
+            <li><a href="#counters">要注意戦法と対策</a></li>
+            <li><a href="#techniques">ルール詳細・テクニック</a></li>
+            <li><a href="#match-record">対戦記録の取り方</a></li>
+            <li><a href="kifu-001.html">棋譜再生（第1局）</a></li>
+            <li><a href="#evaluation">評価値・有利不利</a></li>
+          </ul>
+        </section>
+        <hr />
+        <section>
+          <h3>★その他</h3>
+          <ul>
+            <li><a href="#glossary">用語・略称集</a></li>
+            <li><a href="#faq">よくある質問</a></li>
+            <li><a href="#updates">更新履歴</a></li>
+            <li><a href="#pages">全ページ一覧</a></li>
+          </ul>
+        </section>
+      </nav>
+
+      <div class="side-box">
+        <h2>編集メモ</h2>
+        <p>現在はGitHub Pages用の静的Wikiです。情報はダミーを含みます。</p>
+        <p>GitHub上で直接編集できます。</p>
+      </div>
+    </aside>
+
+    <main id="content" class="content" tabindex="-1"></main>
+  </div>
+
+  <footer class="footer">
+    <p>動物園ウォーズ攻略Wiki（非公式・ファン制作）</p>
+  </footer>
+
+  <script>
+window.ZOO_WARS_WIKI = {
+  versions: [
+    {
+      id: "v1.3.0",
+      label: "Ver.1.3.0（現環境・ダミー）",
+      date: "2026-09-01",
+      summary: "高速展開がやや強い想定のダミー環境",
+      meta: { costRate: "仮: 1.0/秒", handLimit: "仮: 6", fieldLimit: "仮: 5" },
+      tier: [
+        ["S", "シロクマ", "高耐久・前線維持", "ダミー"],
+        ["A", "スイカ", "低コスト展開", "ダミー"],
+        ["A", "ライオン", "押し込み", "ダミー"],
+        ["B", "キリン", "中距離支援", "ダミー"]
+      ],
+      animals: [
+        {no:"001", name:"シロクマ", cost:6, hp:1200, atk:180, role:"タンク", note:"前線を維持する大型。数値・能力はダミー。"},
+        {no:"002", name:"スイカ", cost:2, hp:360, atk:90, role:"展開", note:"軽量枠。名称以外の情報はダミー。"},
+        {no:"003", name:"ライオン", cost:5, hp:800, atk:240, role:"アタッカー", note:"押し込み用という設定のダミー。"},
+        {no:"004", name:"キリン", cost:4, hp:620, atk:150, role:"支援", note:"射程を持つ想定のダミー。"},
+        {no:"005", name:"ゾウ", cost:8, hp:1650, atk:210, role:"大型", note:"高コスト大型という設定のダミー。"},
+        {no:"006", name:"ペンギン", cost:3, hp:500, atk:120, role:"汎用", note:"標準的な性能という設定のダミー。"}
+      ],
+      updates: [
+        ["2026-09-01", "Ver.1.3.0", "シロクマの耐久調整（ダミー）"],
+        ["2026-09-01", "Ver.1.3.0", "一部低コスト動物のコスト変更（ダミー）"]
+      ]
+    },
+    {
+      id: "v1.2.0",
+      label: "Ver.1.2.0（旧環境・ダミー）",
+      date: "2026-08-01",
+      summary: "大型動物が強かった想定の旧環境",
+      meta: { costRate: "仮: 0.9/秒", handLimit: "仮: 6", fieldLimit: "仮: 5" },
+      tier: [
+        ["S", "ゾウ", "大型制圧", "ダミー"],
+        ["S", "シロクマ", "高耐久", "ダミー"],
+        ["A", "ライオン", "押し込み", "ダミー"],
+        ["B", "スイカ", "低コスト展開", "ダミー"]
+      ],
+      animals: [
+        {no:"001", name:"シロクマ", cost:6, hp:1350, atk:175, role:"タンク", note:"旧数値という設定のダミー。"},
+        {no:"002", name:"スイカ", cost:3, hp:360, atk:90, role:"展開", note:"旧コストという設定のダミー。"},
+        {no:"003", name:"ライオン", cost:5, hp:800, atk:240, role:"アタッカー", note:"ダミー。"},
+        {no:"004", name:"キリン", cost:4, hp:620, atk:150, role:"支援", note:"ダミー。"},
+        {no:"005", name:"ゾウ", cost:7, hp:1650, atk:230, role:"大型", note:"旧環境では強かった、というダミー設定。"},
+        {no:"006", name:"ペンギン", cost:3, hp:500, atk:120, role:"汎用", note:"ダミー。"}
+      ],
+      updates: [
+        ["2026-08-01", "Ver.1.2.0", "大型動物の調整（ダミー）"],
+        ["2026-08-01", "Ver.1.2.0", "コスト回復仕様の変更（ダミー）"]
+      ]
+    },
+    {
+      id: "v1.1.0",
+      label: "Ver.1.1.0（過去環境・ダミー）",
+      date: "2026-07-01",
+      summary: "Wikiのバージョン切替確認用データ",
+      meta: { costRate: "仮: 0.8/秒", handLimit: "仮: 5", fieldLimit: "仮: 5" },
+      tier: [
+        ["S", "ライオン", "高火力", "ダミー"],
+        ["A", "ゾウ", "大型", "ダミー"],
+        ["B", "シロクマ", "高耐久", "ダミー"],
+        ["B", "スイカ", "軽量", "ダミー"]
+      ],
+      animals: [
+        {no:"001", name:"シロクマ", cost:7, hp:1250, atk:170, role:"タンク", note:"ダミー。"},
+        {no:"002", name:"スイカ", cost:3, hp:330, atk:85, role:"展開", note:"ダミー。"},
+        {no:"003", name:"ライオン", cost:5, hp:780, atk:260, role:"アタッカー", note:"ダミー。"},
+        {no:"004", name:"キリン", cost:4, hp:600, atk:145, role:"支援", note:"ダミー。"},
+        {no:"005", name:"ゾウ", cost:8, hp:1600, atk:220, role:"大型", note:"ダミー。"},
+        {no:"006", name:"ペンギン", cost:3, hp:480, atk:115, role:"汎用", note:"ダミー。"}
+      ],
+      updates: [["2026-07-01", "Ver.1.1.0", "初期ダミーデータ"]]
+    }
+  ]
+};
+
+</script>
+  <script>
+(() => {
+  const db = window.ZOO_WARS_WIKI;
+  const content = document.getElementById('content');
+  const select = document.getElementById('versionSelect');
+  const summary = document.getElementById('versionSummary');
+  const search = document.getElementById('searchInput');
+  const results = document.getElementById('searchResults');
+
+  const pageIndex = [
+    ['top','トップページ'],['animals','全動物リスト'],['beginner-animals','初心者向け動物'],
+['role-list','役割別リスト'],['deck','デッキ構築'],
+    ['combos','パーツ・コンボリスト'],['counters','要注意戦法と対策'],
+    ['techniques','ルール詳細・テクニック'],['match-record','対戦記録の取り方'],
+    ['evaluation','評価値・有利不利'],['glossary','用語・略称集'],['faq','よくある質問'],
+    ['updates','更新履歴'],['pages','全ページ一覧'],['about','このWikiについて'],['guide','操作ガイド']
+  ];
+
+  db.versions.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v.id; o.textContent = v.label; select.appendChild(o);
+  });
+  const saved = localStorage.getItem('zoo-wars-wiki-version');
+  select.value = db.versions.some(v => v.id === saved) ? saved : db.versions[0].id;
+
+  function V() { return db.versions.find(v => v.id === select.value) || db.versions[0]; }
+  function esc(s='') { return String(s).replace(/[&<>\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c])); }
+  function dummyNotice() {
+    return `<div class="notice"><strong>現在の情報はほぼダミーです。</strong> 実データが集まり次第、GitHub上の <span class="codeish">data/wiki-data.js</span> を置き換えてください。</div>`;
+  }
+  function animalTable(list) {
+    return `<div class="table-wrap"><table><thead><tr><th>No.</th><th>動物</th><th>コスト</th><th>HP</th><th>攻撃</th><th>役割</th><th>メモ</th></tr></thead><tbody>${list.map(a => `<tr><td>${esc(a.no)}</td><td class="card-name">${esc(a.name)}</td><td>${a.cost}</td><td>${a.hp}</td><td>${a.atk}</td><td>${esc(a.role)}</td><td>${esc(a.note)}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  function tierTable(v) {
+    return `<div class="table-wrap"><table><thead><tr><th>Tier</th><th>動物</th><th>想定理由</th><th>注記</th></tr></thead><tbody>${v.tier.map(r => `<tr>${r.map((x,i)=>`<td${i===1?' class="card-name"':''}>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }
+  const commonIntro = v => `<p class="meta">表示環境: <span class="version-chip">${esc(v.label)}</span> / 基準日 ${esc(v.date)}</p>${dummyNotice()}`;
+
+  const pages = {
+    top(v) { return `<h1>動物園ウォーズ攻略Wiki</h1>${dummyNotice()}
+      <h2>メインメニュー</h2>
+      <div class="menu-grid">
+        <div class="menu-block"><h3>★動物リスト</h3><p><a href="#animals">全動物リスト</a> ｜ <a href="#beginner-animals">初心者向け</a> ｜ <a href="#role-list">役割別</a></p></div>
+        <div class="menu-block"><h3>★デッキ・戦術</h3><p><a href="#deck">デッキ構築</a> ｜ <a href="#combos">コンボ</a> ｜ <a href="#counters">要注意戦法と対策</a></p></div>
+        <div class="menu-block"><h3>★対戦研究</h3><p><a href="#techniques">ルール詳細・テクニック</a> ｜ <a href="#match-record">対戦記録</a> ｜ <a href="#evaluation">評価値</a></p></div>
+        <div class="menu-block"><h3>★その他</h3><p><a href="#glossary">用語集</a> ｜ <a href="#faq">FAQ</a> ｜ <a href="#updates">更新履歴</a></p></div>
+      </div>
+      <h2>現在の環境 <span class="badge dummy">ダミー</span></h2>
+      <p><strong>${esc(v.label)}</strong> — ${esc(v.summary)}</p>
+      <div class="kpi-row"><div class="kpi">コスト回復<strong>${esc(v.meta.costRate)}</strong></div><div class="kpi">手札上限<strong>${esc(v.meta.handLimit)}</strong></div><div class="kpi">場の上限<strong>${esc(v.meta.fieldLimit)}</strong></div></div>
+      <h3>環境Tier表（仮）</h3>${tierTable(v)}
+      <h2>このページについて</h2>
+      <p>このWikiは対戦ゲーム「動物園ウォーズ」の攻略情報を整理するための非公式ファンWikiです。動物性能、デッキ、戦術、対策、対戦記録、環境変遷などを蓄積することを目的とします。</p>
+      <p>アップデートで環境が大きく変わることを前提に、画面上部から過去バージョンへ切り替えられる構成にしています。</p>
+      <h2>更新履歴</h2>${updateTable(v)}`; },
+
+    animals(v) { return `<h1>全動物リスト</h1>${commonIntro(v)}<p>カード番号相当の識別子、コスト、HP、攻撃性能、主な役割を一覧化します。</p>${animalTable(v.animals)}`; },
+    'beginner-animals'(v) { const picks=v.animals.slice().sort((a,b)=>a.cost-b.cost).slice(0,4); return `<h1>初心者向け動物リスト</h1>${commonIntro(v)}<p>扱いやすい動物を少数だけ紹介するページです。最終的には「採用理由」「出すタイミング」「苦手な相手」まで書く想定です。</p>${animalTable(picks)}`; },
+    'role-list'(v) { const groups=Object.groupBy ? Object.groupBy(v.animals,a=>a.role) : v.animals.reduce((o,a)=>((o[a.role]??=[]).push(a),o),{}); return `<h1>役割別リスト</h1>${commonIntro(v)}${Object.entries(groups).map(([role,list])=>`<h2>${esc(role)}</h2>${animalTable(list)}`).join('')}`; },
+
+    deck(v) { return `<h1>デッキ構築</h1>${commonIntro(v)}
+      <h2>基本方針 <span class="badge dummy">ダミー</span></h2>
+      <ul><li>低コスト・中コスト・フィニッシャーの役割を分ける。</li><li>「強い動物を入れる」だけでなく、相手の返しに対して残るコストを考える。</li><li>環境バージョンごとに基準コストが違う可能性があるため、ページ上部のバージョンを確認する。</li></ul>
+      <h2>構築テンプレート（仮）</h2>
+      <div class="table-wrap"><table><tr><th>枠</th><th>枚数</th><th>目的</th></tr><tr><td>低コスト</td><td>2〜3</td><td>序盤・差し込み</td></tr><tr><td>中コスト</td><td>2〜3</td><td>主力</td></tr><tr><td>高コスト</td><td>1〜2</td><td>決定力</td></tr></table></div>`; },
+
+    combos(v) { return `<h1>パーツ・コンボリスト</h1>${commonIntro(v)}<h2>攻めの組み合わせ</h2><table><tr><th>名称</th><th>必要動物</th><th>必要コスト</th><th>狙い</th></tr><tr><td>低コスト先置き（仮）</td><td>スイカ + 任意</td><td>仮: 7</td><td>相手の返しを限定する</td></tr><tr><td>大型二段構え（仮）</td><td>シロクマ + ライオン</td><td>仮: 11</td><td>一手目への回答後に本命を通す</td></tr></table>`; },
+
+    counters(v) { return `<h1>要注意戦法と対策</h1>${commonIntro(v)}<p>「見てからでは返せない攻め」「特定デッキに対する必須ケア」などを蓄積します。</p><table><tr><th>戦法</th><th>危険な条件</th><th>事前対策</th><th>備考</th></tr><tr><td>大型連打（仮）</td><td>相手コストが高い</td><td>返し札を温存</td><td>ダミー</td></tr><tr><td>低コスト飽和（仮）</td><td>手札差がある</td><td>盤面コストを残す</td><td>ダミー</td></tr></table>`; },
+
+    techniques(v) { return `<h1>ルール詳細・テクニック</h1>${commonIntro(v)}<h2>コスト管理</h2><p>相手の保有コスト、手札候補、盤面上の動物を同時に追跡すると、返しの範囲を絞り込みやすくなります。</p><h2>見るべき情報</h2><ol><li>自分と相手の現在コスト</li><li>相手が公開した手札種類</li><li>場に残っている動物とその総コスト</li><li>残り時間</li><li>既に使われたキーカード</li></ol>`; },
+
+    'match-record'(v) { return `<h1>対戦記録の取り方</h1>${commonIntro(v)}<p>将棋の棋譜に相当するものとして、イベント単位で記録します。</p><table><tr><th>時刻</th><th>自コスト</th><th>相手推定コスト</th><th>自分の行動</th><th>相手の行動</th><th>盤面</th><th>評価</th></tr><tr><td>2:00</td><td>10</td><td>8〜10</td><td>シロクマ</td><td>シークレット</td><td>自:シロクマ / 相:なし</td><td>+0.3（仮）</td></tr><tr><td>1:56</td><td>4</td><td>6〜8</td><td>待機</td><td>ライオン</td><td>自:シロクマ / 相:ライオン</td><td>-0.2（仮）</td></tr></table><p class="meta">将来的には動画から自動抽出できる形式（CSV/JSON）を想定。</p>`; },
+
+    evaluation(v) { return `<h1>評価値・有利不利</h1>${commonIntro(v)}<p>将棋AIの評価値に近い指標を作るための設計ページです。</p><h2>仮の評価関数</h2><p><span class="codeish">評価 = HP差 + 保有コスト差 + 盤面コスト差 + 手札情報差 + 時間価値</span></p><p>最初は人手で重みを置き、対戦ログが増えたら「その局面からの実勝率」で校正する方針を想定しています。</p><h2>評価ラベル例</h2><table><tr><th>評価値</th><th>意味</th></tr><tr><td>+1.0以上</td><td>かなり有利（仮）</td></tr><tr><td>+0.3〜+1.0</td><td>やや有利（仮）</td></tr><tr><td>-0.3〜+0.3</td><td>互角（仮）</td></tr><tr><td>-1.0〜-0.3</td><td>やや不利（仮）</td></tr><tr><td>-1.0以下</td><td>かなり不利（仮）</td></tr></table>`; },
+
+    glossary(v) { return `<h1>用語・略称集</h1>${commonIntro(v)}<dl><dt><strong>返し</strong></dt><dd>相手の攻めに対応する行動。</dd><dt><strong>盤面コスト</strong></dt><dd>場に存在する動物をコスト換算した値。</dd><dt><strong>確定攻め</strong></dt><dd>相手の既知手札・推定コストから、対応不能と判断できる攻め。仮称。</dd><dt><strong>シークレット</strong></dt><dd>相手がまだ見せていない手札種類。仮称。</dd></dl>`; },
+    faq(v) { return `<h1>よくある質問</h1>${commonIntro(v)}<h3>Q. このWikiの数値は正確ですか？</h3><p>A. 現在はほぼダミーです。実測・検証後に差し替えます。</p><h3>Q. バージョンが違うと何が変わりますか？</h3><p>A. 動物性能、コスト、Tier、戦術記事などをバージョン別に保持できます。</p><h3>Q. 誰でも編集できますか？</h3><p>A. GitHubの運用設定次第です。公開リポジトリならIssue/PR方式が扱いやすいです。</p>`; },
+    updates(v) { return `<h1>更新履歴</h1>${commonIntro(v)}${updateTable(v)}<h2>Wiki側の更新</h2><ul><li>2026-09-10: GitHub Pages版の初期雛形を作成</li><li>2026-09-10: バージョン切替機能を追加</li></ul>`; },
+    pages(v) { return `<h1>全ページ一覧</h1>${commonIntro(v)}<ul class="page-list">${pageIndex.map(([id,name])=>`<li><a href="#${id}">${esc(name)}</a></li>`).join('')}</ul>`; },
+    about(v) { return `<h1>このWikiについて</h1>${commonIntro(v)}<p>動物園ウォーズの攻略・研究情報を共同で蓄積するための非公式Wikiです。</p><h2>編集方針</h2><ul><li>事実と推測を分ける。</li><li>検証前の内容には「仮」「未検証」を付ける。</li><li>アップデートで変化する情報は必ずバージョンを紐付ける。</li><li>対戦相手やプレイヤー個人への中傷は掲載しない。</li></ul>`; },
+    guide(v) { return `<h1>操作ガイド</h1>${commonIntro(v)}<h2>バージョン切替</h2><p>上部のプルダウンから環境を変更します。選択内容はブラウザに保存されます。</p><h2>編集方法</h2><p>基本的なゲームデータは <span class="codeish">data/wiki-data.js</span>、見た目は <span class="codeish">assets/style.css</span>、ページ本文は <span class="codeish">assets/app.js</span> にあります。</p><p>GitHub Pagesでは追加サーバー不要でそのまま公開できます。</p>`; }
+  };
+
+  function updateTable(v) { return `<div class="table-wrap"><table><thead><tr><th>日付</th><th>バージョン</th><th>内容</th></tr></thead><tbody>${v.updates.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`; }
+
+  function render() {
+    const key=(location.hash||'#top').slice(1);
+    const v=V();
+    summary.textContent = `${v.date} / ${v.summary}`;
+    const fn=pages[key] || pages.top;
+    content.innerHTML=fn(v);
+    content.focus({preventScroll:true});
+    document.title = `${pageIndex.find(p=>p[0]===key)?.[1] || 'トップページ'} - 動物園ウォーズ攻略Wiki`;
+  }
+
+  select.addEventListener('change',()=>{localStorage.setItem('zoo-wars-wiki-version',select.value);render();});
+  window.addEventListener('hashchange',render);
+
+  search.addEventListener('input',()=>{
+    const q=search.value.trim().toLowerCase();
+    if(!q){results.hidden=true;results.innerHTML='';return;}
+    const pageHits=pageIndex.filter(([,n])=>n.toLowerCase().includes(q)).map(([id,n])=>[`#${id}`,n]);
+    const animalHits=V().animals.filter(a=>[a.name,a.role,a.note].some(x=>String(x).toLowerCase().includes(q))).map(a=>['#animals',`${a.name}（${a.role} / cost ${a.cost}）`]);
+    const hits=[...pageHits,...animalHits].slice(0,12);
+    results.innerHTML=hits.length?hits.map(([href,label])=>`<a href="${href}">${esc(label)}</a>`).join(''):'該当なし';
+    results.hidden=false;
+  });
+
+  render();
+})();
+
+</script>
+</body>
+</html>
