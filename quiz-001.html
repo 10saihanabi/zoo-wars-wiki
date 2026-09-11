@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="動物園ウォーズ対面クイズ No.1 ネズミとシロクマの頂上決戦。">
+<title>No.1 ネズミとシロクマの頂上決戦 - 勝つのはどっち？</title><link rel="stylesheet" href="assets/style.css"></head>
+<body id="top"><header class="header"><div class="header-inner"><a class="site-title" href="index.html">動物園ウォーズ攻略Wiki</a></div></header>
+<div class="layout"><aside class="sidebar"><nav class="sidebox"><h2>メニュー</h2><ul><li><a href="index.html">トップ</a></li><li><a href="quiz.html">勝つのはどっち？一覧</a></li><li><a href="cards.html">カード一覧</a></li><li><a href="beginner.html">初心者の手引き</a></li></ul></nav></aside>
+<main class="content"><nav class="crumb"><a href="index.html">トップ</a> &gt; <a href="quiz.html">勝つのはどっち？</a> &gt; No.1</nav>
+<h1>No.1 ネズミとシロクマの頂上決戦</h1>
+<p class="lead">勝つのはどっち？　対面の勘を鍛えよう。</p>
+<section class="vs-quiz" id="q1"><h2>ネズミ3体 vs シロクマ1体</h2><p class="small">同時に攻撃を開始し、他のカード・城攻撃・位置差を考えない単純対面。</p>
+<div class="battle-board"><div class="battle-side"><div class="battle-label">LEFT</div><div class="unit-row"><div class="battle-card" style="--card-col:0;--card-row:0"></div><div class="battle-card" style="--card-col:0;--card-row:0"></div><div class="battle-card" style="--card-col:0;--card-row:0"></div></div><strong>ネズミ ×3</strong></div><div class="versus">VS</div><div class="battle-side"><div class="battle-label">RIGHT</div><div class="unit-row"><div class="battle-card" style="--card-col:5;--card-row:0"></div></div><strong>シロクマ ×1</strong></div></div>
+<div class="quiz-buttons"><button type="button" data-answer="left">ネズミ3体</button><button type="button" data-answer="right">シロクマ1体</button></div>
+<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div>
+<button id="showAnswer" class="answer-button" type="button">答えを見る</button>
+<div id="answerPanel" class="answer-panel" hidden><h3>結果：ネズミ3体の勝ち</h3><div class="battle-board result"><div class="battle-side"><div class="battle-label">約2秒後</div><div class="unit-row"><div class="battle-card" style="--card-col:0;--card-row:0"></div><div class="battle-card" style="--card-col:0;--card-row:0"></div></div><strong>ネズミ2体が残る想定</strong></div><div class="versus">WIN</div><div class="battle-side defeated"><div class="unit-row"><div class="battle-card" style="--card-col:5;--card-row:0"></div></div><strong>シロクマ撃破</strong></div></div>
+<p>ネズミ3体の合計DPSは300。シロクマはHP500なので、3体が攻撃できている間に大きく削れます。シロクマは1発200でネズミを1体ずつ倒せますが、2体目を倒す前に押し切られる計算です。</p>
+<p class="small">この問題はゲーム内表示のHP・ダメージ・DPSを使った単純対面モデルです。実戦では初撃タイミング、位置、移動、他ユニットなどで結果が変わる場合があります。</p>
+<p><a href="nezumi.html">ネズミのページ</a> / <a href="shirokuma.html">シロクマのページ</a></p></div></section>
+</main></div><footer class="footer">動物園ウォーズ攻略Wiki（非公式・ファン制作）</footer>
+<script>const feedback=document.getElementById('quizFeedback');let picked='';document.querySelectorAll('.quiz-buttons button').forEach(b=>b.addEventListener('click',()=>{picked=b.dataset.answer;document.querySelectorAll('.quiz-buttons button').forEach(x=>x.classList.toggle('selected',x===b));feedback.textContent='予想を選びました。答えを見るを押してください。'}));document.getElementById('showAnswer').addEventListener('click',()=>{document.getElementById('answerPanel').hidden=false;if(picked) feedback.textContent=picked==='left'?'正解です。':'不正解。ネズミ3体が勝ちます。';else feedback.textContent='ネズミ3体が勝ちます。';});</script></body></html>
