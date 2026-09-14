@@ -1,16 +1,14 @@
 window.DBW_COMMUNITY = {
-  featuredId: null,
+  featuredId: '20260914-001',
   posts: [
-    // 承認した投稿をここへ追加します。
-    // 例:
-    // {
-    //   id: '20260914-001',
-    //   author: '投稿者名',
-    //   category: 'ファンアート',
-    //   title: 'タイトル',
-    //   body: '本文',
-    //   image: 'assets/community/example.webp',
-    //   publishedAt: '2026-09-14',
-    // },
+    {
+      id: '20260914-001',
+      author: '管理人',
+      category: '対戦風景',
+      title: '今日の1枚 #1',
+      body: '',
+      image: 'assets/community/today-20260914.webp',
+      publishedAt: '2026-09-14',
+    },
   ],
 };
