@@ -1,103 +1,93 @@
 (() => {
   const form = document.getElementById('communityForm');
   const message = document.getElementById('submitMessage');
-  const config = window.DBW_SUPABASE || {};
+  const mailButton = document.getElementById('mailButton');
+  const gmailButton = document.getElementById('gmailButton');
+  const recipient = 'dbwdbw@gmail.com';
 
-  if (!form || !message) {
+  if (!form || !message || !mailButton || !gmailButton) {
     return;
   }
 
-  const setMessage = (text, type = '') => {
-    message.className = `community-submit-message ${type}`.trim();
-    message.textContent = text;
+  const getMailContent = () => {
+    const data = new FormData(form);
+    const author = String(data.get('author_name') || '').trim() || '匿名';
+    const category = String(data.get('category') || '').trim();
+    const title = String(data.get('title') || '').trim();
+    const body = String(data.get('body') || '').trim();
+    const rightsConfirmed = data.get('rights_confirmed') === 'on';
+
+    if (!category || !title || !body || !rightsConfirmed) {
+      return null;
+    }
+
+    const subject = `[DBW投稿][${category}] ${title}`;
+    const mailBody = [
+      '動物園ウォーズ攻略Wikiへの投稿です。',
+      '',
+      `投稿者名：${author}`,
+      `種類：${category}`,
+      `タイトル：${title}`,
+      '',
+      '本文：',
+      body,
+      '',
+      '権利確認：',
+      '自作、または掲載許可を得た文章・画像です。',
+      '',
+      '画像がある場合は、このメールに添付してください。',
+    ].join('\n');
+
+    return {
+      subject,
+      mailBody,
+    };
   };
 
-  if (!config.url || !config.anonKey || !window.supabase) {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      setMessage(
-        '投稿機能は準備済みです。Supabase接続後に送信できます。',
-        'warn',
-      );
-    });
-    return;
-  }
+  const showValidationMessage = () => {
+    message.className = 'community-submit-message warn';
+    message.textContent =
+      'タイトル・本文・種類・権利確認を入力してください。';
+  };
 
-  const client = window.supabase.createClient(
-    config.url,
-    config.anonKey,
-  );
+  const openMailClient = () => {
+    const content = getMailContent();
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    setMessage('送信しています…');
-
-    const data = new FormData(form);
-    const image = data.get('image');
-    let imagePath = null;
-
-    try {
-      if (image && image.size > 0) {
-        if (image.size > 8 * 1024 * 1024) {
-          throw new Error('画像は8MB以下にしてください。');
-        }
-
-        const extension = image.name.split('.').pop().toLowerCase();
-        const safeExtension = ['jpg', 'jpeg', 'png', 'webp', 'gif']
-          .includes(extension)
-          ? extension
-          : 'jpg';
-        const fileName = `${crypto.randomUUID()}.${safeExtension}`;
-
-        const upload = await client.storage
-          .from('community-pending')
-          .upload(fileName, image, {
-            cacheControl: '3600',
-            upsert: false,
-          });
-
-        if (upload.error) {
-          throw upload.error;
-        }
-
-        imagePath = upload.data.path;
-      }
-
-      const payload = {
-        author_name: String(data.get('author_name') || '').trim() || '匿名',
-        category: String(data.get('category') || '').trim(),
-        title: String(data.get('title') || '').trim(),
-        body: String(data.get('body') || '').trim(),
-        image_path: imagePath,
-        image_url: null,
-        rights_confirmed: data.get('rights_confirmed') === 'on',
-        status: 'pending',
-      };
-
-      const insert = await client
-        .from('community_posts')
-        .insert(payload);
-
-      if (insert.error) {
-        if (imagePath) {
-          await client.storage
-            .from('community-pending')
-            .remove([imagePath]);
-        }
-        throw insert.error;
-      }
-
-      form.reset();
-      setMessage(
-        '投稿しました。管理者の確認後に公開されます。',
-        'success',
-      );
-    } catch (error) {
-      console.error(error);
-      setMessage(
-        error.message || '投稿に失敗しました。時間をおいて再度お試しください。',
-        'warn',
-      );
+    if (!content) {
+      showValidationMessage();
+      return;
     }
+
+    const url =
+      `mailto:${recipient}` +
+      `?subject=${encodeURIComponent(content.subject)}` +
+      `&body=${encodeURIComponent(content.mailBody)}`;
+
+    window.location.href = url;
+  };
+
+  const openGmail = () => {
+    const content = getMailContent();
+
+    if (!content) {
+      showValidationMessage();
+      return;
+    }
+
+    const url =
+      'https://mail.google.com/mail/?view=cm&fs=1' +
+      `&to=${encodeURIComponent(recipient)}` +
+      `&su=${encodeURIComponent(content.subject)}` +
+      `&body=${encodeURIComponent(content.mailBody)}`;
+
+    window.open(url, '_blank', 'noopener');
+  };
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    openMailClient();
   });
+
+  mailButton.addEventListener('click', openMailClient);
+  gmailButton.addEventListener('click', openGmail);
 })();
