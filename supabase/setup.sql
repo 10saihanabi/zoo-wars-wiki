@@ -16,6 +16,7 @@ create table if not exists public.community_posts (
   ),
   title text not null check (char_length(title) between 1 and 80),
   body text not null check (char_length(body) between 1 and 2000),
+  image_path text,
   image_url text,
   rights_confirmed boolean not null default false,
   status text not null default 'pending' check (
@@ -46,7 +47,6 @@ $$;
 revoke all on function public.is_dbw_admin() from public;
 grant execute on function public.is_dbw_admin() to authenticated;
 
--- Public users may only read approved posts.
 create policy "public read approved community posts"
 on public.community_posts
 for select
@@ -55,7 +55,6 @@ using (
   or public.is_dbw_admin()
 );
 
--- Anonymous visitors may submit only pending posts with rights confirmed.
 create policy "public submit pending community posts"
 on public.community_posts
 for insert
@@ -63,10 +62,10 @@ with check (
   status = 'pending'
   and featured_date is null
   and approved_at is null
+  and image_url is null
   and rights_confirmed = true
 );
 
--- Only registered admins may moderate posts.
 create policy "admins update community posts"
 on public.community_posts
 for update
@@ -86,12 +85,36 @@ for select
 to authenticated
 using (public.is_dbw_admin());
 
--- Prevent more than one featured post per day.
 create unique index if not exists one_featured_post_per_day
 on public.community_posts(featured_date)
 where featured_date is not null and status = 'approved';
 
--- Image bucket for fan art and other submitted images.
+-- Pending images are private.
+insert into storage.buckets (
+  id,
+  name,
+  public,
+  file_size_limit,
+  allowed_mime_types
+)
+values (
+  'community-pending',
+  'community-pending',
+  false,
+  8388608,
+  array[
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+    'image/gif'
+  ]
+)
+on conflict (id) do update set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+-- Approved images are public.
 insert into storage.buckets (
   id,
   name,
@@ -116,27 +139,48 @@ on conflict (id) do update set
   file_size_limit = excluded.file_size_limit,
   allowed_mime_types = excluded.allowed_mime_types;
 
--- Anonymous uploads are accepted only under pending/.
 create policy "public upload pending community images"
 on storage.objects
 for insert
 to anon, authenticated
-with check (
-  bucket_id = 'community-images'
-  and (storage.foldername(name))[1] = 'pending'
+with check (bucket_id = 'community-pending');
+
+create policy "admins read pending community images"
+on storage.objects
+for select
+to authenticated
+using (
+  bucket_id = 'community-pending'
+  and public.is_dbw_admin()
 );
 
--- Public bucket means approved pages can display image URLs.
-create policy "public read community images"
+create policy "admins delete pending community images"
+on storage.objects
+for delete
+to authenticated
+using (
+  bucket_id = 'community-pending'
+  and public.is_dbw_admin()
+);
+
+create policy "public read approved community images"
 on storage.objects
 for select
 to public
 using (bucket_id = 'community-images');
 
--- Admins may manage submitted images.
-create policy "admins manage community images"
+create policy "admins upload approved community images"
 on storage.objects
-for all
+for insert
+to authenticated
+with check (
+  bucket_id = 'community-images'
+  and public.is_dbw_admin()
+);
+
+create policy "admins update approved community images"
+on storage.objects
+for update
 to authenticated
 using (
   bucket_id = 'community-images'
