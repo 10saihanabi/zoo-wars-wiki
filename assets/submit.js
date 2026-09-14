@@ -34,7 +34,7 @@
 
     const data = new FormData(form);
     const image = data.get('image');
-    let imageUrl = null;
+    let imagePath = null;
 
     try {
       if (image && image.size > 0) {
@@ -50,8 +50,8 @@
         const fileName = `${crypto.randomUUID()}.${safeExtension}`;
 
         const upload = await client.storage
-          .from('community-images')
-          .upload(`pending/${fileName}`, image, {
+          .from('community-pending')
+          .upload(fileName, image, {
             cacheControl: '3600',
             upsert: false,
           });
@@ -60,11 +60,7 @@
           throw upload.error;
         }
 
-        const publicUrl = client.storage
-          .from('community-images')
-          .getPublicUrl(upload.data.path);
-
-        imageUrl = publicUrl.data.publicUrl;
+        imagePath = upload.data.path;
       }
 
       const payload = {
@@ -72,7 +68,8 @@
         category: String(data.get('category') || '').trim(),
         title: String(data.get('title') || '').trim(),
         body: String(data.get('body') || '').trim(),
-        image_url: imageUrl,
+        image_path: imagePath,
+        image_url: null,
         rights_confirmed: data.get('rights_confirmed') === 'on',
         status: 'pending',
       };
@@ -82,6 +79,11 @@
         .insert(payload);
 
       if (insert.error) {
+        if (imagePath) {
+          await client.storage
+            .from('community-pending')
+            .remove([imagePath]);
+        }
         throw insert.error;
       }
 
