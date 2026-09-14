@@ -1,0 +1,131 @@
+.community-feature,
+.community-list {
+  margin: 12px 0 20px;
+}
+
+.community-post {
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.community-post.featured {
+  background: #fffdf3;
+  border-color: #d8c97c;
+}
+
+.community-post-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.community-post h2 {
+  margin-top: 10px;
+}
+
+.community-body {
+  white-space: pre-wrap;
+}
+
+.community-image-wrap {
+  margin: 10px 0;
+}
+
+.community-image {
+  display: block;
+  max-width: 100%;
+  max-height: 720px;
+  object-fit: contain;
+  border: 1px solid var(--border);
+}
+
+.community-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.button-link {
+  display: inline-block;
+  border: 1px solid #888;
+  background: #fff;
+  padding: 7px 12px;
+  color: var(--text);
+}
+
+.community-form {
+  max-width: 720px;
+}
+
+.community-form label {
+  display: block;
+  margin: 12px 0;
+  font-weight: 700;
+}
+
+.community-form input[type="text"],
+.community-form input[type="email"],
+.community-form input[type="password"],
+.community-form input[type="date"],
+.community-form select,
+.community-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px;
+  border: 1px solid #aaa;
+  font: inherit;
+}
+
+.community-check {
+  display: flex !important;
+  gap: 8px;
+  align-items: flex-start;
+  font-weight: 400 !important;
+}
+
+.community-submit-message {
+  margin-top: 10px;
+  min-height: 24px;
+}
+
+.community-submit-message.success {
+  color: #176b2c;
+}
+
+.community-submit-message.warn {
+  color: #8a4b00;
+}
+
+.admin-toolbar,
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-actions label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-actions input {
+  display: block;
+  margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+  .community-actions,
+  .admin-toolbar,
+  .admin-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
