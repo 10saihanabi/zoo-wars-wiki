@@ -49,6 +49,14 @@
       </ul>
 
       <hr>
+      <h3>★コミュニティ</h3>
+      <ul>
+        <li><a href="index.html#today-post">今日の1枚</a></li>
+        <li><a href="community.html">みんなの投稿</a></li>
+        <li><a href="submit.html">投稿する</a></li>
+      </ul>
+
+      <hr>
       <h3>★応援</h3>
       <ul>
         <li><a href="other-works.html">作者の他の作品</a></li>
@@ -60,7 +68,6 @@
       <hr>
       <h3>★その他</h3>
       <ul>
-        <li><a href="index.html#poll">環境アンケート</a></li>
         <li><a href="terms.html">用語・略称</a></li>
         <li><a href="updates.html">アップデート履歴</a></li>
       </ul>
@@ -75,9 +82,11 @@
     ['デッキ紹介', 'decks.html'],
     ['豆知識', 'trivia.html'],
     ['【クイズ】勝つのはどっち？', 'quiz.html'],
+    ['今日の1枚', 'index.html#today-post'],
+    ['みんなの投稿', 'community.html'],
+    ['投稿する', 'submit.html'],
     ['作者の他の作品', 'other-works.html'],
     ['StudioGG', 'https://www.studiogg.jp/'],
-    ['環境アンケート', 'index.html#poll'],
     ['用語・略称', 'terms.html'],
     ['アップデート履歴', 'updates.html'],
     ['ネズミ', 'nezumi.html'],
