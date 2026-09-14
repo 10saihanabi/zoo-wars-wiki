@@ -1,1 +1,101 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="動物園ウォーズのアップデート履歴。バージョンごとの追加カード・バランス調整。"><title>アップデート履歴 - 動物園ウォーズ攻略Wiki</title><link rel="stylesheet" href="assets/style.css?v=20260913-4"></head><body><header class="header"><div class="header-inner"><a class="site-title" href="index.html">動物園ウォーズ攻略Wiki</a></div></header><div class="layout"><aside class="sidebar"></aside><main class="content"><nav class="crumb"><a href="index.html">トップ</a> &gt; アップデート履歴</nav><h1>アップデート履歴</h1><p>環境が大きく変わるゲームのため、カード評価・攻略記事を見るときは必ずバージョンを確認してください。</p><div id="updatesContent"></div><h2>出典</h2><ul><li><a href="https://www.studiogg.jp/zoowars/" target="_blank" rel="noopener">Studio GG 動物園ウォーズ公式</a></li><li><a href="https://steamcommunity.com/app/3989360/allnews/" target="_blank" rel="noopener">Steam Community - Zoo Wars All News</a></li></ul></main></div><footer class="footer">動物園ウォーズ攻略Wiki（非公式・ファン制作）</footer><script src="assets/common-menu.js?v=20260913-4"></script><script src="data/wiki-data.js"></script><script>const D=window.ZOO_WIKI;document.getElementById('updatesContent').innerHTML=D.versions.map(v=>`<section class="update-entry"><h2>${v.label} <span class="small">${v.date}</span></h2><p>${v.text}</p></section>`).join('');</script></body></html>
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <meta
+    name="description"
+    content="動物園ウォーズのアップデート履歴。バージョンごとの追加カード・バランス調整。"
+  >
+  <title>アップデート履歴 - 動物園ウォーズ攻略Wiki</title>
+  <link rel="stylesheet" href="assets/style.css?v=20260914-1">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a class="site-title" href="index.html">
+        動物園ウォーズ攻略Wiki
+      </a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar"></aside>
+
+    <main class="content">
+      <nav class="crumb">
+        <a href="index.html">トップ</a>
+        &gt;
+        アップデート履歴
+      </nav>
+
+      <h1>アップデート履歴</h1>
+
+      <p>
+        環境が変わりやすいゲームのため、カード評価・攻略記事を見るときは
+        必ずバージョンを確認してください。
+      </p>
+
+      <div id="updatesContent"></div>
+
+      <h2>出典</h2>
+      <ul>
+        <li>
+          <a
+            href="https://www.studiogg.jp/zoowars/updates.html"
+            target="_blank"
+            rel="noopener"
+          >
+            Studio GG 動物園ウォーズ公式アップデート情報
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://steamcommunity.com/app/3989360/allnews/"
+            target="_blank"
+            rel="noopener"
+          >
+            Steam Community - Zoo Wars All News
+          </a>
+        </li>
+      </ul>
+    </main>
+  </div>
+
+  <footer class="footer">
+    動物園ウォーズ攻略Wiki（非公式・ファン制作）
+  </footer>
+
+  <script src="assets/common-menu.js?v=20260914-1"></script>
+  <script src="data/wiki-data.js?v=20260914-1"></script>
+  <script>
+    const D = window.ZOO_WIKI;
+
+    D.currentVersion = '1.3.1';
+    D.lastChecked = '2026-09-14';
+
+    if (!D.versions.some((version) => version.id === '1.3.1')) {
+      D.versions.unshift({
+        id: '1.3.1',
+        label: 'Ver.1.3.1（現行）',
+        date: '2026-09-13',
+        text: '一部カードのバランス調整。ブドウの粒の数を5から4に変更。',
+      });
+    }
+
+    document.getElementById('updatesContent').innerHTML =
+      D.versions.map((version) => `
+        <section class="update-entry">
+          <h2>
+            ${version.label}
+            <span class="small">${version.date}</span>
+          </h2>
+          <p>${version.text}</p>
+        </section>
+      `).join('');
+  </script>
+</body>
+</html>
