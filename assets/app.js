@@ -4,6 +4,17 @@
   D.currentVersion = '1.3.1';
   D.lastChecked = '2026-09-14';
 
+  D.versions = D.versions.map((version) => {
+    if (version.id !== '1.3.0') {
+      return version;
+    }
+
+    return {
+      ...version,
+      label: 'Ver.1.3.0',
+    };
+  });
+
   if (!D.versions.some((version) => version.id === '1.3.1')) {
     D.versions.unshift({
       id: '1.3.1',
