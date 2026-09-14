@@ -7,8 +7,8 @@
     content="width=device-width, initial-scale=1"
   >
   <title>投稿する - 動物園ウォーズ攻略Wiki</title>
-  <link rel="stylesheet" href="assets/style.css?v=20260914-2">
-  <link rel="stylesheet" href="assets/community.css?v=20260914-2">
+  <link rel="stylesheet" href="assets/style.css?v=20260914-3">
+  <link rel="stylesheet" href="assets/community.css?v=20260914-3">
 </head>
 <body>
   <header class="header">
@@ -30,8 +30,9 @@
       <h1>投稿する</h1>
 
       <div class="box info">
-        投稿は管理者の確認後に公開されます。
-        ファンアートも歓迎しています。
+        投稿はメールで受け付けています。
+        内容を確認し、掲載OKのものだけWikiに公開します。
+        ファンアートも歓迎です。
       </div>
 
       <form id="communityForm" class="community-form">
@@ -76,14 +77,11 @@
           ></textarea>
         </label>
 
-        <label>
-          画像（任意）
-          <input
-            name="image"
-            type="file"
-            accept="image/png,image/jpeg,image/webp,image/gif"
-          >
-        </label>
+        <div class="box warn">
+          <strong>画像を投稿する場合</strong><br>
+          メール作成画面が開いたあと、画像を添付してください。
+          ブラウザから画像を自動添付することはできません。
+        </div>
 
         <label class="community-check">
           <input
@@ -97,9 +95,27 @@
           </span>
         </label>
 
-        <button class="answer-button" type="submit">
-          確認待ちとして投稿する
-        </button>
+        <div class="community-actions">
+          <button
+            id="mailButton"
+            class="answer-button"
+            type="button"
+          >
+            メールを作成
+          </button>
+
+          <button
+            id="gmailButton"
+            class="answer-button"
+            type="button"
+          >
+            Gmailで作成
+          </button>
+        </div>
+
+        <p class="small">
+          宛先：dbwdbw@gmail.com
+        </p>
 
         <div id="submitMessage" class="community-submit-message"></div>
       </form>
@@ -110,11 +126,7 @@
     動物園ウォーズ攻略Wiki（非公式・ファン制作）
   </footer>
 
-  <script src="assets/common-menu.js?v=20260914-2"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-  ></script>
-  <script src="assets/supabase-config.js"></script>
-  <script src="assets/submit.js?v=20260914-2"></script>
+  <script src="assets/common-menu.js?v=20260914-3"></script>
+  <script src="assets/submit.js?v=20260914-3"></script>
 </body>
 </html>
