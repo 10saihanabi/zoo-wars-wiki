@@ -63,6 +63,7 @@
         <li>
           <a href="https://www.studiogg.jp/">StudioGG</a>
         </li>
+        <li><a href="notes.html">note紹介</a></li>
       </ul>
 
       <hr>
@@ -87,6 +88,7 @@
     ['投稿する', 'submit.html'],
     ['作者の他の作品', 'other-works.html'],
     ['StudioGG', 'https://www.studiogg.jp/'],
+    ['note紹介', 'notes.html'],
     ['用語・略称', 'terms.html'],
     ['アップデート履歴', 'updates.html'],
     ['ネズミ', 'nezumi.html'],
