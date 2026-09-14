@@ -30,13 +30,25 @@
     panel.hidden = !loggedIn;
   };
 
+  const getPendingImageUrl = async (path) => {
+    if (!path) {
+      return null;
+    }
+
+    const result = await client.storage
+      .from('community-pending')
+      .createSignedUrl(path, 300);
+
+    return result.error ? null : result.data.signedUrl;
+  };
+
   const renderAdminPost = (post) => {
-    const image = post.image_url
+    const image = post._preview_url
       ? `
         <div class="community-image-wrap">
           <img
             class="community-image"
-            src="${escapeHtml(post.image_url)}"
+            src="${escapeHtml(post._preview_url)}"
             alt="${escapeHtml(post.title)}"
           >
         </div>
@@ -109,24 +121,110 @@
       return;
     }
 
-    postsRoot.innerHTML = data
+    const posts = await Promise.all(data.map(async (post) => ({
+      ...post,
+      _preview_url: await getPendingImageUrl(post.image_path),
+    })));
+
+    postsRoot.innerHTML = posts
       .map(renderAdminPost)
       .join('');
   };
 
-  const updatePost = async (id, values) => {
-    const result = await client
-      .from('community_posts')
-      .update(values)
-      .eq('id', id);
-
-    if (result.error) {
-      alert('更新に失敗しました。');
-      return false;
+  const publishImage = async (post) => {
+    if (!post.image_path) {
+      return null;
     }
 
-    await loadPending();
-    return true;
+    const download = await client.storage
+      .from('community-pending')
+      .download(post.image_path);
+
+    if (download.error) {
+      throw download.error;
+    }
+
+    const publicPath = `approved/${post.id}/${post.image_path}`;
+    const upload = await client.storage
+      .from('community-images')
+      .upload(publicPath, download.data, {
+        cacheControl: '3600',
+        upsert: true,
+      });
+
+    if (upload.error) {
+      throw upload.error;
+    }
+
+    const publicUrl = client.storage
+      .from('community-images')
+      .getPublicUrl(upload.data.path);
+
+    await client.storage
+      .from('community-pending')
+      .remove([post.image_path]);
+
+    return publicUrl.data.publicUrl;
+  };
+
+  const moderatePost = async (id, action, featuredDate = null) => {
+    const postResult = await client
+      .from('community_posts')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (postResult.error) {
+      alert('投稿情報を取得できませんでした。');
+      return;
+    }
+
+    const post = postResult.data;
+
+    try {
+      if (action === 'reject') {
+        if (post.image_path) {
+          await client.storage
+            .from('community-pending')
+            .remove([post.image_path]);
+        }
+
+        const rejected = await client
+          .from('community_posts')
+          .update({
+            status: 'rejected',
+            approved_at: null,
+            featured_date: null,
+            image_path: null,
+          })
+          .eq('id', id);
+
+        if (rejected.error) {
+          throw rejected.error;
+        }
+      } else {
+        const imageUrl = await publishImage(post);
+        const approved = await client
+          .from('community_posts')
+          .update({
+            status: 'approved',
+            approved_at: new Date().toISOString(),
+            featured_date: featuredDate,
+            image_path: null,
+            image_url: imageUrl || post.image_url,
+          })
+          .eq('id', id);
+
+        if (approved.error) {
+          throw approved.error;
+        }
+      }
+
+      await loadPending();
+    } catch (error) {
+      console.error(error);
+      alert('更新に失敗しました。');
+    }
   };
 
   postsRoot.addEventListener('click', async (event) => {
@@ -141,19 +239,12 @@
     const action = button.dataset.action;
 
     if (action === 'approve') {
-      await updatePost(id, {
-        status: 'approved',
-        approved_at: new Date().toISOString(),
-      });
+      await moderatePost(id, 'approve');
       return;
     }
 
     if (action === 'reject') {
-      await updatePost(id, {
-        status: 'rejected',
-        approved_at: null,
-        featured_date: null,
-      });
+      await moderatePost(id, 'reject');
       return;
     }
 
@@ -165,11 +256,7 @@
         return;
       }
 
-      await updatePost(id, {
-        status: 'approved',
-        approved_at: new Date().toISOString(),
-        featured_date: dateInput.value,
-      });
+      await moderatePost(id, 'approve', dateInput.value);
     }
   });
 
